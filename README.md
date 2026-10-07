@@ -36,7 +36,7 @@ yarn test
 ## Release
 - `app.json` y `eas.json` configurados (perfiles preview y production).
 - APK de prueba: https://expo.dev/accounts/faluradev/projects/clasefit/builds/e3a382cf-bc62-4d5d-b146-2e4478609c1c
-- Pendientes para tiendas: ver `checklist_release.md`.
+- Configuración de release y riesgos para publicar: ver `checklist_release.md`.
 
 ## Documentos de la prueba
 - `bitacora_ia.md`: uso de IA y errores detectados.
