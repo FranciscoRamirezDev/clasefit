@@ -16,5 +16,5 @@
 
 ## Resultado de `openspec validate`
 ```
-
+Change 'add-class-booking' is valid
 ```
