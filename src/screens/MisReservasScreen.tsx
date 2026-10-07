@@ -1,9 +1,9 @@
 import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { ClaseCard } from '../components/ClaseCard';
+import { solicitarCancelacion } from '../domain/cancelacion';
 import { misReservas } from '../domain/clases';
 import { MENSAJES } from '../domain/mensajes';
-import { validarCancelacion } from '../domain/reglas';
 import type { Clase } from '../domain/types';
 import { useReservas } from '../state/ReservasContext';
 import { useAhora } from '../state/useAhora';
@@ -14,10 +14,11 @@ export function MisReservasScreen() {
   const lista = misReservas(clases, reservas, ahora);
 
   const onCancelar = (clase: Clase) => {
-    // RN-04 se valida antes de pedir confirmación y otra vez al confirmar (dentro de cancelar).
-    const previa = validarCancelacion(clase, new Date());
-    if (!previa.ok) {
-      Alert.alert(previa.mensaje);
+    // RN-04 lo decide el dominio: solicitarCancelacion al pulsar y
+    // confirmarCancelacion (vía cancelar) al confirmar.
+    const solicitud = solicitarCancelacion(clase, new Date());
+    if (!solicitud.ok) {
+      Alert.alert(solicitud.mensaje);
       return;
     }
     Alert.alert('Cancelar reserva', `¿Quieres cancelar tu reserva de ${clase.nombre}?`, [

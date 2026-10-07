@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useMemo, useReducer, useRef, type ReactNode } from 'react';
 
 import datos from '../data/clases.json';
-import { validarCancelacion, validarReserva } from '../domain/reglas';
+import { confirmarCancelacion } from '../domain/cancelacion';
+import { validarReserva } from '../domain/reglas';
 import type { Clase, Reserva, ResultadoValidacion } from '../domain/types';
 import { estadoInicial, reservasReducer } from './reservasReducer';
 
@@ -33,18 +34,15 @@ export function ReservasProvider({ children }: { children: ReactNode }) {
     return resultado;
   }, []);
 
-  const cancelar = useCallback((claseId: string) => {
-    const clase = CLASES.find((c) => c.id === claseId);
-    if (!clase) {
-      throw new Error(`Clase desconocida: ${claseId}`);
+  // Confirmación de cancelación: confirmarCancelacion revalida RN-04 con la hora actual.
+  const cancelar = useCallback((claseId: string): ResultadoValidacion => {
+    const resultado = confirmarCancelacion(claseId, CLASES, reservasRef.current, new Date());
+    if (!resultado.ok) {
+      return resultado;
     }
-    const resultado = validarCancelacion(clase, new Date());
-    if (resultado.ok) {
-      const accion = { type: 'CANCELAR', claseId } as const;
-      reservasRef.current = reservasReducer({ reservas: reservasRef.current }, accion).reservas;
-      dispatch(accion);
-    }
-    return resultado;
+    reservasRef.current = resultado.reservas;
+    dispatch({ type: 'CANCELAR', claseId });
+    return { ok: true };
   }, []);
 
   const value = useMemo(

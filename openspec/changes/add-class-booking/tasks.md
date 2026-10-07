@@ -39,7 +39,7 @@
 
 - [x] 6.1 Crear `src/components/ClaseCard.tsx` (nombre, día "mié 7 oct", hora, instructor, "X de Y cupos" o "Llena", botón de acción deshabilitado si está llena) usando el formateo de `fechas.ts`; verificar con `npx tsc --noEmit`
 - [x] 6.2 Crear `src/screens/ProximasClasesScreen.tsx`: lista de `proximasClases`, botón Reservar que llama `reservar` y muestra con `Alert` "¡Listo! Tu cupo está reservado" o el mensaje de la regla que falló; verificar con `npx tsc --noEmit`
-- [ ] 6.3 Crear `src/screens/MisReservasScreen.tsx`: lista de `misReservas` o "Aún no tienes reservas"; al pulsar cancelar usa `solicitarCancelacion` (4.9) y muestra el mensaje de RN-04 si falla o un `Alert` de confirmación si pasa; al confirmar usa `confirmarCancelacion` (4.9), sin lógica de RN-04 propia en la pantalla; verificar con `npx tsc --noEmit`
+- [x] 6.3 Crear `src/screens/MisReservasScreen.tsx`: lista de `misReservas` o "Aún no tienes reservas"; al pulsar cancelar usa `solicitarCancelacion` (4.9) y muestra el mensaje de RN-04 si falla o un `Alert` de confirmación si pasa; al confirmar usa `confirmarCancelacion` (4.9), sin lógica de RN-04 propia en la pantalla; verificar con `npx tsc --noEmit`
 - [ ] 6.4 Crear `src/components/TabSelector.tsx` y reemplazar el contenido de `App.tsx` por `ReservasProvider` + selector de 2 pestañas ("Próximas clases", "Mis reservas"); verificar en `npx expo start` que se alterna entre pestañas, que reservar una clase baja sus cupos en uno, que reservarla de nuevo muestra "Ya reservaste esta clase.", que cancelar con 2 horas o más de anticipación pide confirmación, que no confirmar mantiene la reserva, que confirmar la elimina y libera el cupo, y que una clase llena muestra "Llena" con el botón deshabilitado
 
 ## 7. Verificación final
