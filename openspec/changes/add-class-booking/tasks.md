@@ -7,8 +7,8 @@
 
 ## 2. Dominio: fechas
 
-- [ ] 2.1 Implementar `src/domain/fechas.ts` con aritmética UTC y offset fijo de -5 h (America/Bogota): fecha actual en Bogotá, `inicioClase(clase, now)`, clave de día `YYYY-MM-DD` en Bogotá, `yaEmpezo(clase, now)` (`now >= inicio`), `formatearDia` ("mié 7 oct 2026") y `formatearHora` ("18:00") sin `Intl`, `toLocaleString` ni getters locales
-- [ ] 2.2 Escribir `src/domain/__tests__/fechas.test.ts` (instantes en UTC, ej. `new Date('2026-10-07T21:00:00Z')`) con una prueba por escenario: "Fecha de la clase calculada en Bogotá", "Zona horaria del dispositivo distinta a Bogotá", "Cambio de mes", "Día mostrado con año"; verificar con `npx jest src/domain/__tests__/fechas.test.ts`
+- [ ] 2.1 Implementar `src/domain/fechas.ts` con aritmética UTC y offset fijo de -5 h (America/Bogota): fecha actual en Bogotá, `inicioClase(clase, now)`, clave de día `YYYY-MM-DD` en Bogotá, `yaEmpezo(clase, now)` (`now >= inicio`), `formatearDia` ("mié 7 oct", sin año) y `formatearHora` ("18:00") sin `Intl`, `toLocaleString` ni getters locales
+- [ ] 2.2 Escribir `src/domain/__tests__/fechas.test.ts` (instantes en UTC, ej. `new Date('2026-10-07T21:00:00Z')`) con una prueba por escenario: "Fecha de la clase calculada en Bogotá", "Zona horaria del dispositivo distinta a Bogotá", "Cambio de mes", "Día mostrado" (día "mié 7 oct" y hora "18:00"); verificar con `npx jest src/domain/__tests__/fechas.test.ts`
 - [ ] 2.3 Agregar a `fechas.test.ts` pruebas de `yaEmpezo` para 1 ms antes del inicio (false) y exactamente en el inicio (true); verificar que pasan
 
 ## 3. Dominio: clases y cupos (HU-01, HU-03)
@@ -30,18 +30,18 @@
 ## 5. Estado
 
 - [ ] 5.1 Implementar `src/state/reservasReducer.ts` (acciones `RESERVAR` y `CANCELAR`, puro, sin reloj) y probarlo en `src/state/__tests__/reservasReducer.test.ts` (reservar agrega, cancelar quita, cancelar inexistente no cambia el estado); verificar que pasan
-- [ ] 5.2 Implementar `src/state/ReservasContext.tsx` con `useReducer`, exponiendo `reservas`, `reservar(claseId)` y `cancelar(claseId)` que validan con el dominio usando `new Date()` y solo despachan si la validación pasa; verificar con `npx tsc --noEmit`
+- [ ] 5.2 Implementar `src/state/ReservasContext.tsx` con `useReducer`, exponiendo `reservas`, `reservar(claseId)` y `cancelar(claseId)` que validan con el dominio usando `new Date()`, solo despachan si la validación pasa y retornan el resultado de la validación (`{ ok: true }` o `{ ok: false, mensaje }` con el mensaje de la regla que falló) para que las pantallas muestren el mensaje correspondiente; verificar con `npx tsc --noEmit`
 - [ ] 5.3 Agregar un hook `useAhora` con tick periódico (~30 s) que fuerce re-render para ocultar clases que empiezan con la app abierta; verificar con `npx tsc --noEmit`
 
 ## 6. Pantallas y navegación
 
-- [ ] 6.1 Crear `src/components/ClaseCard.tsx` (nombre, día "mié 7 oct 2026", hora, instructor, "X de Y cupos" o "Llena", botón de acción deshabilitado si está llena) usando el formateo de `fechas.ts`; verificar con `npx tsc --noEmit`
+- [ ] 6.1 Crear `src/components/ClaseCard.tsx` (nombre, día "mié 7 oct", hora, instructor, "X de Y cupos" o "Llena", botón de acción deshabilitado si está llena) usando el formateo de `fechas.ts`; verificar con `npx tsc --noEmit`
 - [ ] 6.2 Crear `src/screens/ProximasClasesScreen.tsx`: lista de `proximasClases`, botón Reservar que llama `reservar` y muestra con `Alert` "¡Listo! Tu cupo está reservado" o el mensaje de la regla que falló; verificar con `npx tsc --noEmit`
 - [ ] 6.3 Crear `src/screens/MisReservasScreen.tsx`: lista de `misReservas` o "Aún no tienes reservas"; al pulsar cancelar valida RN-04, muestra el mensaje si falla o un `Alert` de confirmación si pasa, y al confirmar llama `cancelar` (que revalida); verificar con `npx tsc --noEmit`
-- [ ] 6.4 Crear `src/components/TabSelector.tsx` y reemplazar el contenido de `App.tsx` por `ReservasProvider` + selector de 2 pestañas ("Próximas clases", "Mis reservas"); verificar en `npx expo start` que se alterna entre pestañas, que reservar una clase baja sus cupos en uno, que reservarla de nuevo muestra "Ya reservaste esta clase." y que cancelarla libera el cupo
+- [ ] 6.4 Crear `src/components/TabSelector.tsx` y reemplazar el contenido de `App.tsx` por `ReservasProvider` + selector de 2 pestañas ("Próximas clases", "Mis reservas"); verificar en `npx expo start` que se alterna entre pestañas, que reservar una clase baja sus cupos en uno, que reservarla de nuevo muestra "Ya reservaste esta clase.", que cancelar con 2 horas o más de anticipación pide confirmación, que no confirmar mantiene la reserva, que confirmar la elimina y libera el cupo, y que una clase llena muestra "Llena" con el botón deshabilitado
 
 ## 7. Verificación final
 
 - [ ] 7.1 Correr `npx jest` (sin `--watchAll`) y verificar que todas las pruebas pasan, incluida una por cada Scenario de RN-01 a RN-04
-- [ ] 7.2 Correr `npx tsc --noEmit` y `npx expo lint` y verificar que terminan sin errores
+- [ ] 7.2 Correr `npx tsc --noEmit` y verificar que termina sin errores
 - [ ] 7.3 Correr `openspec validate add-class-booking --strict` y verificar que el cambio es válido

@@ -7,16 +7,16 @@ Permite que el socio autenticado vea las próximas clases grupales del gimnasio,
 ## ADDED Requirements
 
 ### Requirement: HU-01 Ver próximas clases
-El sistema SHALL mostrar en "Próximas clases" las clases de hoy, mañana y pasado mañana que no han empezado, ordenadas por fecha y hora. Cada clase SHALL mostrar nombre, día con año, hora, instructor y "X de Y cupos" (X = cupoTotal - ocupados - 1 si el socio la reservó). La fecha de la clase SHALL ser la fecha actual en America/Bogota (UTC-5 fijo) + diaOffset, a la hora indicada, sin importar la zona del dispositivo.
+El sistema SHALL mostrar en "Próximas clases" las clases de hoy, mañana y pasado mañana que no han empezado, ordenadas por fecha y hora. Cada clase SHALL mostrar nombre, día, hora, instructor y "X de Y cupos" (X = cupoTotal - ocupados - 1 si el socio la reservó). La fecha de la clase SHALL ser la fecha actual en America/Bogota (UTC-5 fijo) + diaOffset, a la hora indicada, sin importar la zona del dispositivo.
 
 #### Scenario: Lista ordenada de los tres días
 - **WHEN** el socio abre "Próximas clases" y ninguna clase ha empezado
 - **THEN** ve las clases con `diaOffset` 0, 1 y 2 ordenadas por fecha y hora de inicio
 - **AND** cada clase muestra nombre, día, hora, instructor y cupos disponibles
 
-#### Scenario: Día mostrado con año
+#### Scenario: Día mostrado
 - **WHEN** la fecha actual en Bogotá es miércoles 7 de octubre de 2026 y una clase tiene `diaOffset` 0 y `hora` "18:00"
-- **THEN** la clase muestra el día "mié 7 oct 2026" y la hora "18:00"
+- **THEN** la clase muestra el día "mié 7 oct" y la hora "18:00"
 
 #### Scenario: Formato de cupos disponibles sin reserva del socio
 - **WHEN** una clase tiene `cupoTotal` 15 y `ocupados` 9 y el socio no la ha reservado

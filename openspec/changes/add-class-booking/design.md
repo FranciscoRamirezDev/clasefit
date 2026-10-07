@@ -80,7 +80,7 @@ RN-03 cuenta todas las reservas del socio cuya clase cae en el mismo día (en Bo
 - Fecha actual en Bogotá: `const b = new Date(now.getTime() + OFFSET_BOGOTA_MS)` y se leen `b.getUTCFullYear()`, `getUTCMonth()`, `getUTCDate()`.
 - Inicio de la clase: `Date.UTC(año, mes, día + diaOffset, hh, mm) - OFFSET_BOGOTA_MS` (es decir, +5 h en UTC). `Date.UTC` normaliza desbordes de día/mes/año (31 oct + 2 → 2 nov).
 - Clave de día para RN-03: `YYYY-MM-DD` del inicio de la clase en Bogotá.
-- Formato visible: día "mié 7 oct 2026" (día de semana abreviado, día, mes abreviado, año) y hora "HH:mm", con arreglos propios de nombres en español y getters UTC sobre la fecha desplazada; nunca `toLocaleString`, `Intl` ni getters locales.
+- Formato visible: día "mié 7 oct" (día de semana abreviado, día y mes abreviado, sin año) y hora "HH:mm", con arreglos propios de nombres en español y getters UTC sobre la fecha desplazada; nunca `toLocaleString`, `Intl` ni getters locales.
 - Pruebas: los instantes se escriben en UTC (`new Date('2026-10-07T21:00:00Z')` = 16:00 en Bogotá), así que el resultado no depende de la zona horaria de la máquina que corre Jest.
 
 **Por qué**: es exacto para un offset fijo, no depende de la zona horaria del dispositivo ni de la base de datos de zonas del motor JS, y es trivial de probar con instantes UTC fijos.
@@ -98,3 +98,4 @@ Nota: el insumo (§6) dice "fecha actual del dispositivo", pero su supuesto de z
 - [Reservas en memoria se pierden al cerrar la app] → aceptado por el insumo; AsyncStorage queda como mejora posterior.
 - [Una clase empieza mientras la pantalla está abierta o el diálogo de confirmación sigue abierto] → mitigado con el tick periódico, el filtro por `now` en cada cálculo y la revalidación de RN-04 al confirmar.
 - [Desviación de AGENTS.md (Expo Router)] → decisión explícita del MVP; si la app crece se migra a Expo Router.
+- [Supuesto revisado y aceptado: RN-03 cuenta también las reservas de clases del mismo día que ya empezaron] → es la lectura literal de la regla ("máximo 2 reservas por día"): una reserva de una clase ya empezada sigue siendo una reserva de ese día. Consecuencia: el socio no puede liberar el límite diario esperando a que pase una de sus clases.

@@ -6,7 +6,7 @@ Hoy las reservas de clases grupales de ClaseFit se hacen por WhatsApp con la rec
 
 ## What Changes
 
-- Nueva pantalla **Próximas clases** (HU-01): lista las clases de hoy, mañana y pasado mañana que aún no han empezado, ordenadas por fecha y hora, con nombre, día (con año), hora, instructor y cupos disponibles ("5 de 20 cupos"); las clases sin cupos muestran "Llena" y no se pueden reservar.
+- Nueva pantalla **Próximas clases** (HU-01): lista las clases de hoy, mañana y pasado mañana que aún no han empezado, ordenadas por fecha y hora, con nombre, día, hora, instructor y cupos disponibles ("5 de 20 cupos"); las clases sin cupos muestran "Llena" y no se pueden reservar.
 - Acción **Reservar** (HU-02): valida RN-02, RN-01 y RN-03 en ese orden, muestra solo el primer mensaje que falle y, si todo pasa, descuenta el cupo y muestra "¡Listo! Tu cupo está reservado".
 - Nueva pantalla **Mis reservas** (HU-03): lista las reservas futuras del socio, la más próxima primero, o "Aún no tienes reservas"; permite cancelar con confirmación, aplicando RN-04 antes de pedir confirmación y otra vez al confirmar.
 - Reglas de negocio RN-01 a RN-04 implementadas en el dominio, independientes de la UI. RN-03 cuenta también las reservas de clases del día que ya empezaron.
