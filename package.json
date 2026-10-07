@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {
-    "@react-native/jest-preset": "^0.87.1",
+    "@react-native/jest-preset": "0.86.3",
     "@types/jest": "29.5.14",
     "expo": "~57.0.27",
     "expo-status-bar": "~57.0.1",
@@ -24,7 +24,10 @@
     "test": "jest --watchAll"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
   },
   "private": true
 }

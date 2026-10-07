@@ -17,6 +17,8 @@
 | 3 | En `tasks.md` (5.2), `reservar(claseId)` y `cancelar(claseId)` no retornaban el resultado de la validación, así que las pantallas no tenían cómo mostrar el mensaje de la regla que falló | Revisé la tarea contra los escenarios de HU-02 y HU-03, que exigen mostrar el mensaje correspondiente | Pedí que ambas retornen `ok` o el mensaje de la regla que falló |
 | 4 | La verificación manual de la tarea 6.4 no cubría la confirmación de cancelación ni las clases llenas | Comparé la tarea con los escenarios de HU-01 y HU-03 | Agregué: cancelar con 2 horas o más pide confirmación, no confirmar mantiene la reserva, confirmar la elimina y libera el cupo, y una clase llena muestra "Llena" con el botón deshabilitado |
 | 5 | La tarea 7.2 pedía correr `npx expo lint`, pero el proyecto no tiene ESLint configurado y no está en el alcance | Revisé la configuración del proyecto | Quité `npx expo lint` y dejé solo `npx tsc --noEmit` |
+| 6 | Las tareas no incluían pruebas para 3 escenarios de la spec ("Sin reservas", "RN-04 se valida antes de pedir confirmación" y "RN-04 se revalida al confirmar"), 2 de ellos de RN-04 | Le pedí a la IA verificar que cada prueba coincidiera con un Scenario, y el cruce automático mostró los escenarios sin cubrir | Extraje el flujo de cancelación a funciones puras con el reloj inyectado (`solicitarCancelacion`, `confirmarCancelacion`, tareas 4.9 y 4.10) y agregué las pruebas con el nombre exacto de cada escenario |
+| 7 | Dejó un helper de pruebas (`testHelpers.ts`) en el dominio de producción (`src/domain/`) |  | Lo moví a `src/domain/__tests__/` y configuré `testMatch` en Jest para que solo cuenten como suites los archivos `*.test.ts` |
 
 ## Supuestos que la IA propuso y acepté
 | Supuesto | Por qué lo acepté |
